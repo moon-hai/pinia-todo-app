@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { uniqueId, cloneDeep } from 'lodash'
+import { uniqueId } from 'lodash'
 import { ITodoItem } from './types'
 
 export const useTodoItemStore = defineStore('todoItems', {
@@ -25,15 +25,13 @@ export const useTodoItemStore = defineStore('todoItems', {
 
   getters: {
     filteredTodoItems: state => (target: number): ITodoItem[] => {
-      const filteredTodoItems = cloneDeep(state.todoItems)
-
       switch (target) {
         case 1:
-          return filteredTodoItems.filter(todoItem => todoItem.done)
+          return state.todoItems.filter(todoItem => todoItem.done)
         case 2:
-          return filteredTodoItems.filter(todoItem => !todoItem.done)
+          return state.todoItems.filter(todoItem => !todoItem.done)
         default:
-          return filteredTodoItems
+          return state.todoItems
       }
     }
   },
